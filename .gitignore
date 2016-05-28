@@ -2,3 +2,4 @@
 pa1/pptoken
 pa1/tests/*.my
 pa1/tests/*.my.exit_status
+pa1/nbproject
