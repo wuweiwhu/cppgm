@@ -6,8 +6,6 @@
 #include <unordered_map>
 #include <unordered_set>
 
-using namespace std;
-
 #include "IPPTokenStream.h"
 #include "DebugPPTokenStream.h"
 
@@ -50,12 +48,12 @@ int HexCharToValue(int c)
     case 'e': return 14;
     case 'F': return 15;
     case 'f': return 15;
-    default: throw logic_error("HexCharToValue of nonhex char");
+        default: throw std::logic_error("HexCharToValue of nonhex char");
     }
 }
 
 // See C++ standard 2.11 Identifiers and Appendix/Annex E.1
-const vector<pair<int, int>> AnnexE1_Allowed_RangesSorted =
+const std::vector<std::pair<int, int>> AnnexE1_Allowed_RangesSorted =
 {
     {0xA8,0xA8},
     {0xAA,0xAA},
@@ -105,7 +103,7 @@ const vector<pair<int, int>> AnnexE1_Allowed_RangesSorted =
 };
 
 // See C++ standard 2.11 Identifiers and Appendix/Annex E.2
-const vector<pair<int, int>> AnnexE2_DisallowedInitially_RangesSorted =
+const std::vector<std::pair<int, int>> AnnexE2_DisallowedInitially_RangesSorted =
 {
     {0x300,0x36F},
     {0x1DC0,0x1DFF},
@@ -114,7 +112,7 @@ const vector<pair<int, int>> AnnexE2_DisallowedInitially_RangesSorted =
 };
 
 // See C++ standard 2.13 Operators and punctuators
-const unordered_set<string> Digraph_IdentifierLike_Operators =
+const std::unordered_set<std::string> Digraph_IdentifierLike_Operators =
 {
     "new", "delete", "and", "and_eq", "bitand",
     "bitor", "compl", "not", "not_eq", "or",
@@ -122,7 +120,7 @@ const unordered_set<string> Digraph_IdentifierLike_Operators =
 };
 
 // See `simple-escape-sequence` grammar
-const unordered_set<int> SimpleEscapeSequence_CodePoints =
+const std::unordered_set<int> SimpleEscapeSequence_CodePoints =
 {
     '\'', '"', '?', '\\', 'a', 'b', 'f', 'n', 'r', 't', 'v'
 };
@@ -130,9 +128,8 @@ const unordered_set<int> SimpleEscapeSequence_CodePoints =
 // Tokenizer
 struct PPTokenizer
 {
-    IPPTokenStream& output;
-
-    PPTokenizer(IPPTokenStream& output) : output(output) {}
+public:
+    PPTokenizer(IPPTokenStream &output) : _output(output) {}
 
     void process(int c)
     {
@@ -142,22 +139,25 @@ struct PPTokenizer
         // 3. call an output.emit_* function for each token.
         if (c == EndOfFile)
         {
-            output.emit_identifier("not_yet_implemented");
-            output.emit_eof();
+            _output.emit_identifier("not_yet_implemented");
+            _output.emit_eof();
         }
         // TIP: Reference implementation is about 1000 lines of code.
         // It is a state machine with about 50 states, most of which
         // are simple transitions of the operators.
     }
+
+private:
+    IPPTokenStream &_output;
 };
 
 int main()
 {
     try
     {
-        ostringstream oss;
-        oss << cin.rdbuf();
-        string input = oss.str();
+        std::ostringstream oss;
+        oss << std::cin.rdbuf();
+        std::string input = oss.str();
         DebugPPTokenStream output;
         PPTokenizer tokenizer(output);
         for (char c : input)
@@ -167,9 +167,9 @@ int main()
         }
         tokenizer.process(EndOfFile);
     }
-    catch (exception& e)
+    catch (std::exception &e)
     {
-        cerr << "ERROR: " << e.what() << endl;
+        std::cerr << "ERROR: " << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 }
