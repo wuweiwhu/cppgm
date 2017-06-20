@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <string>
 #include <fstream>
 #include <stdexcept>
 #include <algorithm>

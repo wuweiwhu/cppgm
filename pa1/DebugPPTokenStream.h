@@ -1,6 +1,8 @@
 // (C) 2013 CPPGM Foundation. All Rights Reserved. www.cppgm.org
-
 #pragma once
+
+#include <iostream>
+#include <string>
 
 #include "IPPTokenStream.h"
 
