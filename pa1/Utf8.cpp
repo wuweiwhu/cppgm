@@ -1,7 +1,7 @@
 #include <array>
 #include <stdexcept>
 
-#include "utf8.h"
+#include "Utf8.h"
 
 namespace cppgm
 {

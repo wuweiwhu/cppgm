@@ -6,14 +6,14 @@ all: pptoken
 
 pptoken: 
 	g++ -g -std=gnu++11 -Wall -o pptoken pptoken.cpp \
-                                             utf8.cpp
+                                             Utf8.cpp
 
 #HEADER=IPPTokenStream.h \
 #       DebugPPTokenStream.h \
-#       utf8.h
+#       Utf8.h
 
 #SOURCE=pptoken.cpp \
-#       utf8.cpp
+#       Utf8.cpp
 
 #pptoken:
 #	g++ -g -std=gnu++11 -Wall -o pptoken $(SOURCE)
