@@ -21,7 +21,7 @@ TransformResult Utf8Transform::Process(char utf8CodeUnit)
     _codeUnits.push_back(utf8CodeUnit);
     if (_codeUnits.size() == _codeUnitCount)
     {
-        int codePoint = 0; // wtf ??
+        int codePoint = encode_utf32(_codeUnits);
         _codeUnitCount = 0;
         _codeUnits.clear();
         return TransformResult(true, codePoint);
