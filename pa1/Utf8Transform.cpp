@@ -6,7 +6,7 @@
 namespace cppgm
 {
 
-TransformResult::TransformResult(bool success, int codePoint) : Success(success), CodePoint(codePoint)
+Utf8TransformResult::Utf8TransformResult(bool success, int codePoint) : Success(success), CodePoint(codePoint)
 {
 }
 
@@ -14,7 +14,7 @@ Utf8Transform::Utf8Transform() : _codeUnitCount(0)
 {
 }
 
-TransformResult Utf8Transform::Process(char utf8CodeUnit)
+Utf8TransformResult Utf8Transform::Process(char utf8CodeUnit)
 {
     if (_codeUnitCount == 0)
         _codeUnitCount = octet_count(utf8CodeUnit);
@@ -24,10 +24,10 @@ TransformResult Utf8Transform::Process(char utf8CodeUnit)
         int codePoint = encode_utf32(_codeUnits);
         _codeUnitCount = 0;
         _codeUnits.clear();
-        return TransformResult(true, codePoint);
+        return Utf8TransformResult(true, codePoint);
     }
     else
-        return TransformResult(false, 0);
+        return Utf8TransformResult(false, 0);
 }
 
 }

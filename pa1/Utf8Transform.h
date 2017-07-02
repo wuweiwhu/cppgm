@@ -5,10 +5,10 @@
 namespace cppgm
 {
 
-struct TransformResult
+struct Utf8TransformResult
 {
 public:
-    TransformResult(bool success, int codePoint);
+    Utf8TransformResult(bool success, int codePoint);
 
     bool Success;
     int CodePoint;
@@ -18,7 +18,7 @@ class Utf8Transform
 {
 public:
     Utf8Transform();
-    TransformResult Process(char utf8CodeUnit);
+    Utf8TransformResult Process(char utf8CodeUnit);
 
 private:
     unsigned int _codeUnitCount;
