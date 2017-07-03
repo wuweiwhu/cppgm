@@ -7,14 +7,14 @@
 namespace cppgm
 {
 
-class TrigraphTransform
+class UniversalCharTransform
 {
 public:
-    TrigraphTransform();
+    UniversalCharTransform();
     TransformResult Process(int codePoint);
 
 private:
-    enum TransformState {InitState, FirstQuestionState, SecondQuestionState};
+    enum TransformState {InitState, SlashState, ShortHexSeqState, LongHexSeqState};
     TransformState _state;
     std::vector<int> _codePoints;
 };

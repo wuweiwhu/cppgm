@@ -1,6 +1,7 @@
-#include <vector>
 #include <unordered_map>
+#include <vector>
 
+#include "TransformResult.h"
 #include "TrigraphTransform.h"
 
 namespace cppgm
@@ -18,12 +19,6 @@ bool IsKnownThirdCodePoint(int codePoint)
     return ThirdCodePointMap.find(codePoint) != ThirdCodePointMap.cend();
 }
 
-}
-
-TransformResult::TransformResult(bool processed, std::vector<int> codePoints) :
-    Processed(processed),
-    CodePoints(codePoints)
-{
 }
 
 TrigraphTransform::TrigraphTransform() : _state(TransformState::InitState)
