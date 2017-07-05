@@ -4,13 +4,16 @@ all: pptoken
 #pptoken: pptoken.cpp IPPTokenStream.h DebugPPTokenStream.h
 #	g++ -g -std=gnu++11 -Wall -o pptoken pptoken.cpp
 
-pptoken: 
+pptoken:
 	g++ -g -std=gnu++11 -Wall -o pptoken pptoken.cpp \
                                              Utf8.cpp \
                                              Utf8Transform.cpp \
                                              TransformResult.cpp \
                                              TrigraphTransform.cpp \
                                              UniversalCharTransform.cpp
+
+unit-test:
+	g++ -g -std=gnu++11 -Wall -I../gtest/include -o pptoken-tests TrigraphTransformTests.cpp -L../gtest/lib -lgtest -lgtest_main -lpthread
 
 #HEADER=IPPTokenStream.h \
 #       DebugPPTokenStream.h \
