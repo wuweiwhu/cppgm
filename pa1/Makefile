@@ -1,29 +1,29 @@
+CFLAGS=-g -std=gnu++11 -Wall
+
 all: pptoken
 
 # build pptoken application
-#pptoken: pptoken.cpp IPPTokenStream.h DebugPPTokenStream.h
-#	g++ -g -std=gnu++11 -Wall -o pptoken pptoken.cpp
+
+SOURCES=Utf8.cpp \
+        Utf8Transform.cpp \
+        TransformResult.cpp \
+        TrigraphTransform.cpp \
+        UniversalCharTransform.cpp
 
 pptoken:
-	g++ -g -std=gnu++11 -Wall -o pptoken pptoken.cpp \
-                                             Utf8.cpp \
-                                             Utf8Transform.cpp \
-                                             TransformResult.cpp \
-                                             TrigraphTransform.cpp \
-                                             UniversalCharTransform.cpp
+	g++ $(CFLAGS) -o pptoken pptoken.cpp $(SOURCES)
+
+# build & execute unit tests
+
+TEST-SOURCES=TrigraphTransformTests.cpp
+
+TEST-INCLUDE=-I../gtest/include
+
+TEST-LIBS=-L../gtest/lib -lgtest -lgtest_main -lpthread
 
 unit-test:
-	g++ -g -std=gnu++11 -Wall -I../gtest/include -o pptoken-tests TrigraphTransformTests.cpp -L../gtest/lib -lgtest -lgtest_main -lpthread
-
-#HEADER=IPPTokenStream.h \
-#       DebugPPTokenStream.h \
-#       Utf8.h
-
-#SOURCE=pptoken.cpp \
-#       Utf8.cpp
-
-#pptoken:
-#	g++ -g -std=gnu++11 -Wall -o pptoken $(SOURCE)
+	g++ $(CFLAGS) $(TEST-INCLUDE) -o pptoken-tests $(TEST-SOURCES) $(SOURCES) $(TEST-LIBS)
+	./pptoken-tests
 
 # test pptoken application
 test: all
