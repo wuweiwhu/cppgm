@@ -14,4 +14,8 @@ public:
     std::vector<int> CodePoints;
 };
 
+// TODO (std_string) : think about location
+bool operator==(TransformResult const &left, TransformResult const &right);
+bool operator!=(TransformResult const &left, TransformResult const &right);
+
 }
