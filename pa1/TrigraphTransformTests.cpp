@@ -1,8 +1,8 @@
-#include <vector>
 #include <gtest/gtest.h>
+#include <vector>
 
-#include "TrigraphTransform.h"
 #include "TransformResult.h"
+#include "TrigraphTransform.h"
 
 namespace cppgm
 {

@@ -15,7 +15,8 @@ pptoken:
 
 # build & execute unit tests
 
-TEST-SOURCES=TrigraphTransformTests.cpp
+TEST-SOURCES=TrigraphTransformTests.cpp \
+             UniversalCharTransformTests.cpp
 
 TEST-INCLUDE=-I../gtest/include
 
