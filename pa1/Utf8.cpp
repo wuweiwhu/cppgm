@@ -1,5 +1,5 @@
-#include <array>
 #include <stdexcept>
+#include <vector>
 
 #include "Utf8.h"
 
@@ -7,12 +7,12 @@ namespace cppgm
 {
     namespace
     {
-        //const char singleOctetMask = 0x80;
-        //const char singleOctetValue = 0;
-        //const char otherOctetMask = 0xC0;
-        //const char otherOctetValue = 0x80;
+        //const unsigned char singleOctetMask = 0x80;
+        //const unsigned char singleOctetValue = 0;
+        //const unsigned char otherOctetMask = 0xC0;
+        //const unsigned char otherOctetValue = 0x80;
 
-        bool check_octet(char octet, char mask, char expectedValue)
+        bool check_octet(unsigned char octet, unsigned char mask, unsigned char expectedValue)
         {
             return (octet & mask) == expectedValue;
         }
@@ -22,14 +22,14 @@ namespace cppgm
             return (leftBorder <= utf32) && (utf32 <= rightBorder);
         }
 
-        int encode_utf32(char ch)
+        int encode_utf32(unsigned char ch)
         {
             if (!check_octet(ch, 0x80, 0))
                 throw std::logic_error("Bad first character");
             return ch;
         }
 
-        int encode_utf32(char ch1, char ch2)
+        int encode_utf32(unsigned char ch1, unsigned char ch2)
         {
             if (!check_octet(ch1, 0xE0, 0xC0))
                 throw std::logic_error("Bad first character");
@@ -38,7 +38,7 @@ namespace cppgm
             return ((ch1 & 0x1F) << 6) + (ch2 & 0x3F);
         }
 
-        int encode_utf32(char ch1, char ch2, char ch3)
+        int encode_utf32(unsigned char ch1, unsigned char ch2, unsigned char ch3)
         {
             if (!check_octet(ch1, 0xF0, 0xE0))
                 throw std::logic_error("Bad first character");
@@ -49,7 +49,7 @@ namespace cppgm
             return ((ch1 & 0x0F) << 12) + ((ch2 & 0x3F) << 6) + (ch3 & 0x3F);
         }
 
-        int encode_utf32(char ch1, char ch2, char ch3, char ch4)
+        int encode_utf32(unsigned char ch1, unsigned char ch2, unsigned char ch3, unsigned char ch4)
         {
             if (!check_octet(ch1, 0xF8, 0xF0))
                 throw std::logic_error("Bad first character");
@@ -63,7 +63,7 @@ namespace cppgm
         }
     }
 
-    int octet_count(char first)
+    int octet_count(unsigned char first)
     {
         // Char number range: 0000 0000-0000 007F - UTF-8 octet sequence: 0xxxxxxx
         if (check_octet(first, 0x80, 0))
@@ -80,7 +80,7 @@ namespace cppgm
         throw std::logic_error("Bad first character");
     }
 
-    int encode_utf32(std::vector<char> const &codeUnits)
+    int encode_utf32(std::vector<unsigned char> const &codeUnits)
     {
         // TODO (std_string) : use functional style
         switch (codeUnits.size())
@@ -98,36 +98,36 @@ namespace cppgm
         }
     }
 
-    std::vector<char> decode_utf32(int ch)
+    std::vector<unsigned char> decode_utf32(int ch)
     {
         // Char number range: 0000 0000-0000 007F - UTF-8 octet sequence: 0xxxxxxx
         if (check_utf32(ch, 0x00000000, 0x0000007F))
         {
-            char ch1 = ch & 0x7F;
+            unsigned char ch1 = ch & 0x7F;
             return {ch1};
         }
         // Char number range: 0000 0080-0000 07FF - UTF-8 octet sequence: 110xxxxx 10xxxxxx
         else if (check_utf32(ch, 0x00000080, 0x000007FF))
         {
-            char ch1 = 0xC0 + ((ch >> 6) & 0x1F);
-            char ch2 = 0x80 + (ch & 0x3F);
+            unsigned char ch1 = 0xC0 + ((ch >> 6) & 0x1F);
+            unsigned char ch2 = 0x80 + (ch & 0x3F);
             return {ch1, ch2};
         }
         // Char number range: 0000 0800-0000 FFFF - UTF-8 octet sequence: 1110xxxx 10xxxxxx 10xxxxxx
         else if (check_utf32(ch, 0x00000800, 0x0000FFFF))
         {
-            char ch1 = 0xE0 + ((ch >> 12) & 0x0F);
-            char ch2 = 0x80 + ((ch >> 6) & 0x3F);
-            char ch3 = 0x80 + (ch & 0x3F);
+            unsigned char ch1 = 0xE0 + ((ch >> 12) & 0x0F);
+            unsigned char ch2 = 0x80 + ((ch >> 6) & 0x3F);
+            unsigned char ch3 = 0x80 + (ch & 0x3F);
             return {ch1, ch2, ch3};
         }
         // Char number range: 0001 0000-0010 FFFF - UTF-8 octet sequence: 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
         else if (check_utf32(ch, 0x00010000, 0x0010FFFF))
         {
-            char ch1 = 0xF0 + ((ch >> 18) & 0x07);
-            char ch2 = 0x80 + ((ch >> 12) & 0x3F);
-            char ch3 = 0x80 + ((ch >> 6) & 0x3F);
-            char ch4 = 0x80 + (ch & 0x3F);
+            unsigned char ch1 = 0xF0 + ((ch >> 18) & 0x07);
+            unsigned char ch2 = 0x80 + ((ch >> 12) & 0x3F);
+            unsigned char ch3 = 0x80 + ((ch >> 6) & 0x3F);
+            unsigned char ch4 = 0x80 + (ch & 0x3F);
             return {ch1, ch2, ch3, ch4};
         }
         else
