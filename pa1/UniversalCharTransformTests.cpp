@@ -10,19 +10,10 @@ namespace cppgm
 struct UniversalCharTransformData
 {
 public:
-    UniversalCharTransformData(int descriptorCodePoint, std::vector<int> const &digitCodePoints, int resultCodePoint);
-
     int DescriptorCodePoint;
     std::vector<int> DigitCodePoints;
     int ResultCodePoint;
 };
-
-UniversalCharTransformData::UniversalCharTransformData(int descriptorCodePoint, std::vector<int> const &digitCodePoints, int resultCodePoint) :
-    DescriptorCodePoint(descriptorCodePoint),
-    DigitCodePoints(digitCodePoints),
-    ResultCodePoint(resultCodePoint)
-{
-}
 
 class UniversalCharTransformTests : public testing::TestWithParam<UniversalCharTransformData>
 {
@@ -67,15 +58,15 @@ TEST(UniversalCharTransformTests, ProcessOtherCases)
     EXPECT_EQ(TransformResult(true, {'\\', 'U', '0', 'x'}), transform.Process('x'));
 }
 
-INSTANTIATE_TEST_CASE_P(UniversalChars, UniversalCharTransformTests, testing::Values(UniversalCharTransformData('u', {'0', '0', '3', 'F'}, '?'),
-                                                                                     UniversalCharTransformData('u', {'0', '0', '3', 'f'}, '?'),
-                                                                                     UniversalCharTransformData('u', {'0', '3', '0', '4'}, 0x304),
-                                                                                     UniversalCharTransformData('u', {'1', '2', '3', 'd'}, 0x123d),
-                                                                                     UniversalCharTransformData('u', {'1', '2', '3', 'D'}, 0x123d),
-                                                                                     UniversalCharTransformData('U', {'0', '0', '0', '0', '0', '0', '3', 'F'}, '?'),
-                                                                                     UniversalCharTransformData('U', {'0', '0', '0', '0', '0', '0', '3', 'f'}, '?'),
-                                                                                     UniversalCharTransformData('U', {'0', '0', '0', '0', '0', '3', '0', '4'}, 0x304),
-                                                                                     UniversalCharTransformData('U', {'0', '0', '0', '0', '1', '2', '3', 'd'}, 0x123d),
-                                                                                     UniversalCharTransformData('U', {'0', '0', '0', '0', '1', '2', '3', 'D'}, 0x123d)));
+INSTANTIATE_TEST_CASE_P(UniversalChars, UniversalCharTransformTests, testing::Values(UniversalCharTransformData {'u', {'0', '0', '3', 'F'}, '?'},
+                                                                                     UniversalCharTransformData {'u', {'0', '0', '3', 'f'}, '?'},
+                                                                                     UniversalCharTransformData {'u', {'0', '3', '0', '4'}, 0x304},
+                                                                                     UniversalCharTransformData {'u', {'1', '2', '3', 'd'}, 0x123d},
+                                                                                     UniversalCharTransformData {'u', {'1', '2', '3', 'D'}, 0x123d},
+                                                                                     UniversalCharTransformData {'U', {'0', '0', '0', '0', '0', '0', '3', 'F'}, '?'},
+                                                                                     UniversalCharTransformData {'U', {'0', '0', '0', '0', '0', '0', '3', 'f'}, '?'},
+                                                                                     UniversalCharTransformData {'U', {'0', '0', '0', '0', '0', '3', '0', '4'}, 0x304},
+                                                                                     UniversalCharTransformData {'U', {'0', '0', '0', '0', '1', '2', '3', 'd'}, 0x123d},
+                                                                                     UniversalCharTransformData {'U', {'0', '0', '0', '0', '1', '2', '3', 'D'}, 0x123d}));
 
 }

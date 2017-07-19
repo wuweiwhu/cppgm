@@ -10,17 +10,9 @@ namespace cppgm
 struct TrigraphTransformData
 {
 public:
-    TrigraphTransformData(int thirdSourceCodePoint, int resultCodePoint);
-
     int ThirdSourceCodePoint;
     int ResultCodePoint;
 };
-
-TrigraphTransformData::TrigraphTransformData(int thirdSourceCodePoint, int resultCodePoint) :
-    ThirdSourceCodePoint(thirdSourceCodePoint),
-    ResultCodePoint(resultCodePoint)
-{
-}
 
 class TrigraphTransformTests : public testing::TestWithParam<TrigraphTransformData>
 {
@@ -58,14 +50,14 @@ TEST(TrigraphTransformTests, ProcessOtherCases)
     EXPECT_EQ(TransformResult(true, {'?', '?', '#'}), transform.Process('#'));
 }
 
-INSTANTIATE_TEST_CASE_P(Trigraphs, TrigraphTransformTests, testing::Values(TrigraphTransformData('=', '#'),
-                                                                           TrigraphTransformData('/', '\\'),
-                                                                           TrigraphTransformData('\'', '^'),
-                                                                           TrigraphTransformData('(', '['),
-                                                                           TrigraphTransformData(')', ']'),
-                                                                           TrigraphTransformData('!', '|'),
-                                                                           TrigraphTransformData('<', '{'),
-                                                                           TrigraphTransformData('>', '}'),
-                                                                           TrigraphTransformData('-', '~')));
+INSTANTIATE_TEST_CASE_P(Trigraphs, TrigraphTransformTests, testing::Values(TrigraphTransformData {'=', '#'},
+                                                                           TrigraphTransformData {'/', '\\'},
+                                                                           TrigraphTransformData {'\'', '^'},
+                                                                           TrigraphTransformData {'(', '['},
+                                                                           TrigraphTransformData {')', ']'},
+                                                                           TrigraphTransformData {'!', '|'},
+                                                                           TrigraphTransformData {'<', '{'},
+                                                                           TrigraphTransformData {'>', '}'},
+                                                                           TrigraphTransformData {'-', '~'}));
 
 }
