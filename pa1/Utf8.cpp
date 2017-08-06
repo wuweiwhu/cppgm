@@ -57,7 +57,7 @@ namespace cppgm
                 throw std::logic_error("Bad second character");
             if (!check_octet(ch3, 0xC0, 0x80))
                 throw std::logic_error("Bad third character");
-            if (!check_octet(ch3, 0xC0, 0x80))
+            if (!check_octet(ch4, 0xC0, 0x80))
                 throw std::logic_error("Bad fourth character");
             return ((ch1 & 0x07) << 18) + ((ch2 & 0x3F) << 12) + ((ch3 & 0x3F) << 6) + (ch4 & 0x3F);
         }

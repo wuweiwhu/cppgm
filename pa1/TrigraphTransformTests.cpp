@@ -7,12 +7,17 @@
 namespace cppgm
 {
 
+namespace
+{
+
 struct TrigraphTransformData
 {
 public:
     int ThirdSourceCodePoint;
     int ResultCodePoint;
 };
+
+}
 
 class TrigraphTransformTests : public testing::TestWithParam<TrigraphTransformData>
 {

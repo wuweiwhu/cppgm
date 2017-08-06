@@ -7,12 +7,17 @@
 namespace cppgm
 {
 
+namespace
+{
+
 struct Utf8TransformData
 {
 public:
     std::vector<unsigned char> Utf8CodeUnits;
     int ResultCodePoint;
 };
+
+}
 
 class Utf8TransformTests : public testing::TestWithParam<Utf8TransformData>
 {
@@ -25,13 +30,6 @@ TEST_P(Utf8TransformTests, ProcessUtf8)
     for(unsigned int index = 0; index < transformData.Utf8CodeUnits.size()-1; ++index)
         EXPECT_EQ(Utf8TransformResult(false, 0), transform.Process(transformData.Utf8CodeUnits[index]));
     EXPECT_EQ(Utf8TransformResult(true, transformData.ResultCodePoint), transform.Process(transformData.Utf8CodeUnits[transformData.Utf8CodeUnits.size()-1]));
-}
-
-TEST(Utf8TransformTests, ProcessBadUtf8)
-{
-    Utf8Transform transform;
-    EXPECT_THROW(transform.Process(0x80), std::logic_error);
-    EXPECT_THROW(transform.Process(0x9F), std::logic_error);
 }
 
 INSTANTIATE_TEST_CASE_P(Utf8, Utf8TransformTests, testing::Values(Utf8TransformData {{'?'}, '?'},

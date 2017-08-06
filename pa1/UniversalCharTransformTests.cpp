@@ -7,6 +7,9 @@
 namespace cppgm
 {
 
+namespace
+{
+
 struct UniversalCharTransformData
 {
 public:
@@ -14,6 +17,8 @@ public:
     std::vector<int> DigitCodePoints;
     int ResultCodePoint;
 };
+
+}
 
 class UniversalCharTransformTests : public testing::TestWithParam<UniversalCharTransformData>
 {
