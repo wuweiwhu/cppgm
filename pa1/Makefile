@@ -18,7 +18,8 @@ pptoken:
 TEST-SOURCES=TrigraphTransformTests.cpp \
              UniversalCharTransformTests.cpp \
              Utf8TransformTests.cpp \
-             Utf8TransformBadOctetTests.cpp
+             Utf8TransformBadOctetTests.cpp \
+             Utf8Tests.cpp
 
 TEST-INCLUDE=-I../gtest/include
 
