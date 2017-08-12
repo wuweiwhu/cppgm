@@ -19,14 +19,16 @@ TEST-SOURCES=TrigraphTransformTests.cpp \
              UniversalCharTransformTests.cpp \
              Utf8TransformTests.cpp \
              Utf8TransformBadOctetTests.cpp \
-             Utf8Tests.cpp
+             Utf8OctetCountTests.cpp \
+             Utf8EncodeUtf32Tests.cpp \
+             Utf8DecodeUtf32Tests.cpp
 
 TEST-INCLUDE=-I../gtest/include
 
 TEST-LIBS=-L../gtest/lib -lgtest -lgtest_main -lpthread
 
 unit-test:
-	g++ $(CFLAGS) $(TEST-INCLUDE) -o pptoken-tests $(TEST-SOURCES) $(SOURCES) $(TEST-LIBS)
+	g++ $(CFLAGS) $(TEST-INCLUDE) -o pptoken-tests $(SOURCES) $(TEST-SOURCES) $(TEST-LIBS)
 	./pptoken-tests
 
 # test pptoken application
