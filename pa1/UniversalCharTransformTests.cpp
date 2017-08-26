@@ -75,5 +75,4 @@ INSTANTIATE_TEST_CASE_P(UniversalChars,
                                         UniversalCharTransformData {{'U', '0', '0', '0', '0', '1', '2', '3', 'd'}, 0x123D, "Processing_U0000123d"},
                                         UniversalCharTransformData {{'U', '0', '0', '0', '0', '1', '2', '3', 'D'}, 0x123D, "Processing_U0000123D"}),
                         [](testing::TestParamInfo<UniversalCharTransformData> const &data){ return data.param.Name; });
-
 }

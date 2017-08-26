@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <string>
 #include <vector>
 
 #include "TransformResult.h"
@@ -15,6 +16,7 @@ struct TrigraphTransformData
 public:
     int ThirdSourceCodePoint;
     int ResultCodePoint;
+    std::string Name;
 };
 
 }
@@ -55,14 +57,15 @@ TEST(TrigraphTransformTests, ProcessOtherCases)
     EXPECT_EQ(TransformResult(true, {'?', '?', '#'}), transform.Process('#'));
 }
 
-INSTANTIATE_TEST_CASE_P(Trigraphs, TrigraphTransformTests, testing::Values(TrigraphTransformData {'=', '#'},
-                                                                           TrigraphTransformData {'/', '\\'},
-                                                                           TrigraphTransformData {'\'', '^'},
-                                                                           TrigraphTransformData {'(', '['},
-                                                                           TrigraphTransformData {')', ']'},
-                                                                           TrigraphTransformData {'!', '|'},
-                                                                           TrigraphTransformData {'<', '{'},
-                                                                           TrigraphTransformData {'>', '}'},
-                                                                           TrigraphTransformData {'-', '~'}));
+INSTANTIATE_TEST_CASE_P(Trigraphs, TrigraphTransformTests, testing::Values(TrigraphTransformData {'=', '#', "Processing_number_sign_char"},
+                                                                           TrigraphTransformData {'/', '\\', "Processing_backslash_char"},
+                                                                           TrigraphTransformData {'\'', '^', "Processing_caret_circumflex_char"},
+                                                                           TrigraphTransformData {'(', '[', "Processing_opening_bracket_char"},
+                                                                           TrigraphTransformData {')', ']', "Processing_closing_bracket_char"},
+                                                                           TrigraphTransformData {'!', '|', "Processing_vertical_bar_char"},
+                                                                           TrigraphTransformData {'<', '{', "Processing_opening_brace_char"},
+                                                                           TrigraphTransformData {'>', '}', "Processing_closing_brace_char"},
+                                                                           TrigraphTransformData {'-', '~', "Processing_tilde_char"}),
+                                                           [](testing::TestParamInfo<TrigraphTransformData> const &data){ return data.param.Name; });
 
 }
