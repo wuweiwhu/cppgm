@@ -8,7 +8,8 @@ SOURCES=Utf8.cpp \
         Utf8Transform.cpp \
         TransformResult.cpp \
         TrigraphTransform.cpp \
-        UniversalCharTransform.cpp
+        UniversalCharTransform.cpp \
+        TotalTransform.cpp 
 
 pptoken:
 	g++ $(CFLAGS) -o pptoken pptoken.cpp $(SOURCES)
